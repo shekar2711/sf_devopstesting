@@ -1,11 +1,23 @@
+log_folder: /Users/shekar/code-analyzer/logs
+
+rules:
+  eslint:
+    sort-vars:
+      severity: Info
+      tags: ["Recommended", "Suggestion"]
+  regex:
+    NoTrailingWhitespace:
+      tags: ["CodeFormat"]
+
 engines:
-    flowtest:
-        disable_engine: true
-    eslint:
-        auto_discover_eslint_config: true
-        disable_lwc_base_config: true
-    pmd:
-        file_extensions:
-            # Disable Visualforce analysis
-            visualforce:
-                - '.vfnoop'
+  eslint:
+    eslint_config_file: .eslintrc.json
+  regex:
+    custom_rules:
+      NoTodoComments:
+        regex: /Todo/gi
+        file_extensions: [".cls", ".trigger"]
+        description: Prevents TODO comments from being in Apex code.
+        violation_message: Found a comment in an Apex file with a TODO statement.
+        severity: Moderate
+        tags: ["Recommended", "CodeFormat"]
